@@ -7,4 +7,4 @@ License: MIT
 from .attention import HybridStateSpaceAttention
 
 __all__ = ["HybridStateSpaceAttention"]
-__version__ = "0.1.0"
+__version__ = "0.2.0"
