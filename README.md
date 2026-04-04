@@ -38,14 +38,16 @@ Not a model. A **plug-and-play attention mechanism** that replaces standard mult
 
 ![HSA vs Standard Attention](honest_benchmark.png.png)
 
-📊 Raw Benchmark Data:
-======================================================================
- Seq Len | Standard (ms) |   HSA (ms) | Speedup | Std Mem (MB) | HSA Mem (MB)
-----------------------------------------------------------------------
-     128 |      11.50 ±1.9 |    27.95 ±6.2 |    0.4x |       151.0 |       195.7
-     256 |       8.93 ±0.4 |    51.26 ±21.7 |    0.2x |       217.5 |       218.0
-     512 |      40.95 ±15.1 |    58.42 ±26.3 |    0.7x |       310.4 |       273.5
-    1024 |      29.44 ±4.3 |    46.55 ±16.8 |    0.6x |       623.1 |       407.9
-    2048 |      85.56 ±1.2 |    47.81 ±2.7 |    1.8x |      1729.5 |       624.3
-    4096 |     294.89 ±2.7 |   100.93 ±1.0 |    2.9x |      6045.7 |      1060.7
+## 📊 Benchmark Results (T4 GPU)
+
+| Seq Len | Standard (ms) | HSA (ms) | Speedup | Standard Mem (MB) | HSA Mem (MB) |
+|---------|--------------|----------|---------|-------------------|---------------|
+| 128 | 11.5 | 27.9 | 0.4x | 151 | 196 |
+| 256 | 8.9 | 51.3 | 0.2x | 217 | 218 |
+| 512 | 40.9 | 58.4 | 0.7x | 310 | 273 |
+| 1024 | 29.4 | 46.5 | 0.6x | 623 | 408 |
+| 2048 | 85.6 | 47.8 | **1.8x** | 1729 | 624 |
+| 4096 | 294.9 | 100.9 | **2.9x** | 6046 | 1061 |
+
+**Key takeaway:** HSA trades off some speed on short contexts for **6x lower memory** and **3x faster inference** on long contexts (4K+ tokens).
 
