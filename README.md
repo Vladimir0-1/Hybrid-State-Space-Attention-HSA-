@@ -34,6 +34,11 @@ Not a model. A **plug-and-play attention mechanism** that replaces standard mult
 **HSA is linear.** Always.
 
 
+## 📊 Speed Benchmark
+
+![HSA vs Standard Attention](honest_benchmark.png)
+
+
 
 ## How to Use (Architecture Integration)
 
