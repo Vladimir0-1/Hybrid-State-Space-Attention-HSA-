@@ -1,4 +1,4 @@
-[![donation](https://www.donationalerts.com/r/vladimir0_1)
+[![Donate](https://img.shields.io/badge/Donate-Boosty-orange)](https://www.donationalerts.com/c/vladimir0_1)
 
 
 # Hybrid State-Space Attention (HSA)
