@@ -1,7 +1,7 @@
 [![Donate](https://img.shields.io/badge/Donate-Boosty-orange)](https://www.donationalerts.com/c/vladimir0_1) 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Vladimir0-1/Hybrid-State-Space-Attention-HSA-/blob/main/examples/hsa_demo.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Vladimir0-1/Hybrid-State-Space-Attention_HSSA/blob/main/examples/hssa_demo.ipynb)
 
-# Hybrid State-Space Attention (HSA)
+# Hybrid State-Space Attention (HSSA)
 
 **Plug-and-play attention mechanism. Linear complexity. Runs on consumer GPUs.**
 
@@ -20,7 +20,7 @@ Replace standard multi-head attention in any transformer.
 
 ## Complexity
 
-| Operation | Standard Attention | HSA |
+| Operation | Standard Attention | HSSA |
 |-----------|--------------------|-----|
 | Per token | O(n) | O(1) |
 | Full sequence | O(n²) | **O(n)** |
@@ -30,7 +30,7 @@ Replace standard multi-head attention in any transformer.
 
 ### Speed & Memory
 
-| Seq Len | Standard (ms) | HSA (ms) | Speedup | Std Mem (MB) | HSA Mem (MB) |
+| Seq Len | Standard (ms) | HSSA (ms) | Speedup | Std Mem (MB) | HSSA Mem (MB) |
 |---------|--------------|----------|---------|--------------|--------------|
 | 128 | 7.96 | 7.54 | 1.1x | 86 | 123 |
 | 256 | 7.76 | 7.70 | 1.0x | 152 | 141 |
@@ -40,7 +40,7 @@ Replace standard multi-head attention in any transformer.
 | 4096 | 263.57 | 64.87 | **4.1x** | 5980 | 995 |
 | 8192 | OOM | 0.01 | — | — | ~1100 |
 
-![Speed Benchmark](honest_benchmark.png)
+![Speed Benchmark](honest_benchmark_hssa.png)
 *Lower is better. Standard attention OOM at 8192.*
 
 ### Training Convergence (WikiText-2, 3 epochs)
@@ -50,16 +50,16 @@ Replace standard multi-head attention in any transformer.
 | Standard Attention | 0.0006 |
 | HSA | 0.0001 |
 
-![Convergence](convergence.png)
+![Convergence](convergence_hssa.png)
 *Both models converge to comparable loss.*
 
 
 
 ## Key Takeaways
 
-- **Short contexts (<1024):** HSA matches standard attention (no overhead)
-- **Long contexts (2048-4096):** HSA is **2-4x faster** and uses **3-6x less memory**
-- **Very long contexts (8192+):** Standard OOM, HSA works
+- **Short contexts (<1024):** HSSA matches standard attention (no overhead)
+- **Long contexts (2048-4096):** HSSA is **2-4x faster** and uses **3-6x less memory**
+- **Very long contexts (8192+):** Standard OOM, HSSA works
 
 
 
@@ -79,13 +79,13 @@ model.attention = HybridStateSpaceAttention(
 
 ## Run the Benchmark
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Vladimir0-1/Hybrid-State-Space-Attention-HSA-/blob/main/examples/hsa_demo.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Vladimir0-1/Hybrid-State-Space-Attention-HSA-/blob/main/examples/hssa_demo.ipynb)
 
 Click the badge to reproduce results on your own hardware.
 
 ## Multi-Agent Extension (Sleepy Agent Legion)
 
-HSA can be extended to a multi-agent system where agents **work, sleep, and dream**.
+HSSA can be extended to a multi-agent system where agents **work, sleep, and dream**.
 
 ### How It Works
 
