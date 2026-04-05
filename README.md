@@ -111,7 +111,7 @@ HSSA can be extended to a multi-agent system where agents **work, sleep, and dre
 
 ### Example
 
-```python
+
 from hsa import SleepyAgentLegion
 
 legion = SleepyAgentLegion(
@@ -120,8 +120,40 @@ legion = SleepyAgentLegion(
     consensus_threshold=0.7
 )
 
-output = legion.forward("Explain quantum computing")
-# Agents work → sleep → dream → wake → collective output
+
+### How It Works
+
+HSA combines four mechanisms to achieve linear complexity:
+
+
+Input Sequence (n tokens)
+        │
+        ├──► Sliding Window ──► Local context (O(n×window))
+        │
+        ├──► Compressed Attention ──► Global context via k-means centroids (O(n×k))
+        │
+        ├──► Information Broadcast ──► Exponential diffusion (O(n log n))
+        │
+        └──► Adaptive Mixing ──► Learnable gates balance local/global
+                    │
+                    ▼
+              Output (n tokens)
+
+
+### Why this works
+
+| Mechanism | What it does | Complexity |
+|-----------|--------------|-------------|
+| **Sliding Window** | Each token attends to neighbors within window | O(n × window) |
+| **Compressed Attention** | Sequence → k centroids → cross-attention | O(n × k) |
+| **Information Broadcast** | Exponential message passing (like graph diffusion) | O(n log n) |
+| **Adaptive Mixing** | Model learns when to use local vs global | O(n) |
+
+**Total:** O(n) with fixed window size and k.
+
+### Short-Sequence Fallback
+
+For sequences <1024 tokens, HSA automatically switches to **full attention** (no overhead). This ensures no performance penalty on short contexts.
 
 
 
