@@ -1,8 +1,8 @@
 """
-HSA Honest Benchmark - Run this script to compare Standard vs HSA
+HSSA Honest Benchmark - Run this script to compare Standard vs HSSA
 No cherry-picking. Multiple metrics. Draw your own conclusions.
 
-Usage: python examples/hsa_demo.py
+Usage: python examples/hssa_demo.py
 """
 
 import numpy as np
@@ -12,7 +12,7 @@ import time
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 
-from hsa import HybridStateSpaceAttention
+from hssa import HybridStateSpaceAttention
 
 class StandardAttention(nn.Module):
     """Standard multi-head attention (baseline)"""
@@ -109,7 +109,7 @@ def benchmark_speed_memory(model, seq_len, device='cuda', num_iters=20):
 
 def main():
     print("="*70)
-    print("HSA Honest Benchmark")
+    print("HSSA Honest Benchmark")
     print("="*70)
     
     seq_lengths = [128, 256, 512, 1024, 2048, 4096]
@@ -120,7 +120,7 @@ def main():
         'vocab_size': 10000
     }
     
-    results = {'standard': [], 'hsa': []}
+    results = {'standard': [], 'hssa': []}
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
     print(f"Running on: {device}\n")
     
@@ -133,39 +133,39 @@ def main():
         )
         std_res = benchmark_speed_memory(model_std, seq_len, device)
         
-        # HSA model
+        # HSSA model
         model_hsa = TinyTransformer(
             **configs,
             attention_class=HybridStateSpaceAttention,
             window_size=512,
             num_global_tokens=64
         )
-        hsa_res = benchmark_speed_memory(model_hsa, seq_len, device)
+        hssa_res = benchmark_speed_memory(model_hssa, seq_len, device)
         
         results['standard'].append(std_res)
-        results['hsa'].append(hsa_res)
+        results['hssa'].append(hssa_res)
     
     # Print raw data
     print("\n Raw Benchmark Data:")
     print("="*80)
-    print(f"{'Seq Len':>8} | {'Standard (ms)':>14} | {'HSA (ms)':>11} | {'Speedup':>7} | {'Std Mem (MB)':>12} | {'HSA Mem (MB)':>12}")
+    print(f"{'Seq Len':>8} | {'Standard (ms)':>14} | {'HSSA (ms)':>11} | {'Speedup':>7} | {'Std Mem (MB)':>12} | {'HSSA Mem (MB)':>12}")
     print("-"*80)
     for i, seq in enumerate(seq_lengths):
         std_mem_str = f"{results['standard'][i]['peak_memory_mb']:.1f}" if results['standard'][i]['peak_memory_mb'] else "N/A"
-        hsa_mem_str = f"{results['hsa'][i]['peak_memory_mb']:.1f}" if results['hsa'][i]['peak_memory_mb'] else "N/A"
-        speedup = results['standard'][i]['mean_time_ms'] / results['hsa'][i]['mean_time_ms']
-        print(f"{seq:8d} | {results['standard'][i]['mean_time_ms']:10.2f} ±{results['standard'][i]['std_time_ms']:.1f} | {results['hsa'][i]['mean_time_ms']:8.2f} ±{results['hsa'][i]['std_time_ms']:.1f} | {speedup:6.1f}x | {std_mem_str:>12} | {hsa_mem_str:>12}")
+        hsa_mem_str = f"{results['hssa'][i]['peak_memory_mb']:.1f}" if results['hssa'][i]['peak_memory_mb'] else "N/A"
+        speedup = results['standard'][i]['mean_time_ms'] / results['hssa'][i]['mean_time_ms']
+        print(f"{seq:8d} | {results['standard'][i]['mean_time_ms']:10.2f} ±{results['standard'][i]['std_time_ms']:.1f} | {results['hssa'][i]['mean_time_ms']:8.2f} ±{results['hssa'][i]['std_time_ms']:.1f} | {speedup:6.1f}x | {std_mem_str:>12} | {hssa_mem_str:>12}")
     
     # Plot
     fig, axes = plt.subplots(1, 2, figsize=(14, 5))
     
     std_times = [r['mean_time_ms'] for r in results['standard']]
-    hsa_times = [r['mean_time_ms'] for r in results['hsa']]
+    hsa_times = [r['mean_time_ms'] for r in results['hssa']]
     std_err = [r['std_time_ms'] for r in results['standard']]
-    hsa_err = [r['std_time_ms'] for r in results['hsa']]
+    hsa_err = [r['std_time_ms'] for r in results['hssa']]
     
     axes[0].errorbar(seq_lengths, std_times, yerr=std_err, fmt='o-', label='Standard', capsize=5)
-    axes[0].errorbar(seq_lengths, hsa_times, yerr=hsa_err, fmt='s-', label='HSA', capsize=5)
+    axes[0].errorbar(seq_lengths, hssa_times, yerr=hssa_err, fmt='s-', label='HSSA', capsize=5)
     axes[0].set_xlabel('Sequence Length')
     axes[0].set_ylabel('Time (ms)')
     axes[0].set_title('Forward+Backward Time (lower is better)')
@@ -174,9 +174,9 @@ def main():
     
     if device == 'cuda':
         std_mem = [r['peak_memory_mb'] for r in results['standard']]
-        hsa_mem = [r['peak_memory_mb'] for r in results['hsa']]
+        hssa_mem = [r['peak_memory_mb'] for r in results['hssa']]
         axes[1].plot(seq_lengths, std_mem, 'o-', label='Standard')
-        axes[1].plot(seq_lengths, hsa_mem, 's-', label='HSA')
+        axes[1].plot(seq_lengths, hssa_mem, 's-', label='HSSA')
         axes[1].set_xlabel('Sequence Length')
         axes[1].set_ylabel('Peak Memory (MB)')
         axes[1].set_title('GPU Memory Usage (lower is better)')
@@ -195,5 +195,4 @@ def main():
 
 
 if __name__ == "__main__":
-    import numpy as np
     main()
