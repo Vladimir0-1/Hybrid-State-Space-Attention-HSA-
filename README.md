@@ -1,6 +1,5 @@
 [![Donate](https://img.shields.io/badge/Donate-Boosty-orange)](https://www.donationalerts.com/c/vladimir0_1) 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Vladimir0-1/Hybrid-State-Space-Attention_HSSA/blob/main/examples/hssa_demo.ipynb)
-
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Vladimir0-1/CWAB-Compressed-Window-Attention-Broadcast/blob/main/examples/cwab_demo.ipynb)
 # Hybrid State-Space Attention (HSSA)
 
 **Plug-and-play attention mechanism. Linear complexity. Runs on consumer GPUs.**
