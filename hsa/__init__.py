@@ -1,10 +1,10 @@
 """
-Hybrid State-Space Attention (HSSA) 
+CWAB-Compressed-Window-Attention-Broadcast
 Author: Vladimir0-1
 License: MIT
 """
 
-from .attention import HybridStateSpaceAttention
+from .attention import CompressedWindowAttentionBroadcast
 
-__all__ = ["HybridStateSpaceAttention"]
+__all__ = ["CompressedWindowAttentionBroadcast"]
 __version__ = "0.2.0"
