@@ -8,6 +8,19 @@
 Replace standard multi-head attention in any transformer.
 
 
+## Not to be confused
+
+|                      | **HSA** (other)                              | **HSSA** (this repository)                   |
+|----------------------|----------------------------------------------|----------------------------------------------|
+| **Full name**        | Hybrid State-Space Attention                 | Hybrid State-Space Attention                 |
+| **Based on**         | SSM (Mamba, S4) + attention                  | Sliding window + compression + broadcast     |
+| **Mechanism**        | Recurrent state                              | Direct windowed attention                    |
+| **Complexity**       | O(n)                                         | O(n)                                         |
+| **Memory**           | Fixed-size state                             | Learnable memory tokens                      |
+
+> **Note:** Despite the similar name, this is a **different architecture**. No SSM or recurrent state is used.
+
+
 ## Core Concepts
 
 | Component | Function |
