@@ -1,8 +1,6 @@
 """
 HSSA Honest Benchmark - Run this script to compare Standard vs HSSA
 No cherry-picking. Multiple metrics. Draw your own conclusions.
-
-Usage: python examples/hssa_demo.py
 """
 
 import numpy as np
