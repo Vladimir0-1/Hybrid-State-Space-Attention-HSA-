@@ -78,9 +78,9 @@ Replace standard multi-head attention in any transformer.
 
 ## Quick Start
 
-
+```
 from hssa import HybridStateSpaceAttention
-
+```
 # Replace your attention layer
 ```
 model.attention = HybridStateSpaceAttention(
