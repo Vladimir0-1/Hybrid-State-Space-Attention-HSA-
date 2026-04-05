@@ -69,13 +69,14 @@ Replace standard multi-head attention in any transformer.
 from hsa import HybridStateSpaceAttention
 
 # Replace your attention layer
+```
 model.attention = HybridStateSpaceAttention(
     hidden_size=768,
     num_heads=12,
     window_size=512,
     num_global_tokens=64
 )
-
+```
 
 ## Run the Benchmark
 
@@ -111,7 +112,7 @@ HSSA can be extended to a multi-agent system where agents **work, sleep, and dre
 
 ### Example
 
-
+```
 from hsa import SleepyAgentLegion
 
 legion = SleepyAgentLegion(
@@ -119,14 +120,13 @@ legion = SleepyAgentLegion(
     base_config=config,
     consensus_threshold=0.7
 )
-
+```
 
 ### How It Works
 
 HSA combines four mechanisms to achieve linear complexity:
-
+```
 Input Sequence (n tokens)
-            
                    ↓
          Sliding Window -> Local context (O(n×window))
                    ↓
@@ -137,7 +137,7 @@ Input Sequence (n tokens)
          Adaptive Mixing -> Learnable gates balance local/global
                    ↓     
               Output (n tokens)
-
+```
 
 
 
